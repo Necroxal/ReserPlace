@@ -8,3 +8,19 @@
 }*/
 
 //module.exports = routes;
+
+const {
+    userMainPage, 
+    createUser, 
+    userLogin
+} = require("../controllers/users");
+
+const express = require("express");
+const router = express.Router();
+
+router.get("/user", userMainPage);
+router.post("/signup", createUser);
+router.post("/login", userLogin);
+// router.route("/places")  <- chain methods and their functions.
+
+module.exports = router;
