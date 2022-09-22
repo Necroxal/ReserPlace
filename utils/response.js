@@ -11,7 +11,7 @@ const succes = (req,res,message,codeStatus)=>{
 }
 
 const error = (req,res,error, codeStatus, details)=>{
-    console.log(chalk.red('[Response Error]'+ details));
+    console.log(chalk.red('[Response Error]'+details));
     res.status(codeStatus || 500).send({
         error: error,
         body: ''
