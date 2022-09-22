@@ -1,26 +1,11 @@
-//*Aqui van las rutas de cada componente
-//const account = require('');
+const places = require('../apiServices/places/routes');
 
-//? Funcion que se encarga de manejar las rutas de los componentes
 
-/*const routes = (server)=>{
-    server.use('/account',account);  
-}*/
+//&Fucntion to manage routes
+//?The parameter is sent in index.js (main project)
+const routes = (app)=>{
+    app.use('/places',places);  
+}
 
-//module.exports = routes;
-
-const {
-    userMainPage, 
-    createUser, 
-    userLogin
-} = require("../controllers/users");
-
-const express = require("express");
-const router = express.Router();
-
-router.get("/user", userMainPage);
-router.post("/signup", createUser);
-router.post("/login", userLogin);
-// router.route("/places")  <- chain methods and their functions.
 
 module.exports = router;
