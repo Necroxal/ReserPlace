@@ -1,29 +1,18 @@
-const express = require('express');
+const express = require('express'); //?Server express
 const app = express();
+const dotenv = require('dotenv'); //?For environment varibales in file .env
+const {conexion,connect} = require('./db');//?Connection for bd in mysql
+const routes = require("./routes/routes"); //? Import routes 
 
-const dotenv = require('dotenv');
-dotenv.config();
+//? use dotenv
+dotenv.config(); 
 
-const {conexion} = require('./db');
-const routes = require("./routes/routes");
 const PORT = process.env.PORT || 3000;
 
+//?Use the route of file routes.js
+routes(app); 
 
-// Middleware
-
-// Routes
-app.use("/", routes);
-
-// ↓ Commented for momentary local use without database
-/* conexion.connect(error=>{
-    if(error)throw error
-    else{
-        console.log('Conexion exitosa');
-    }
-}); */
-
-//Uso de las rutas(Recordar que lo que se exporta de routes.js es una funcion)
-//routes(app); Este es el uso correcto para las rutas establecidas
+connect();
 
 app.listen(PORT,  ()=>{
     console.log(`El servidor esta escuchando en el puerto ${PORT}`);

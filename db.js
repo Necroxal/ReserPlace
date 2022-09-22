@@ -1,15 +1,22 @@
-const dotenv = require('dotenv');
-const mysql = require('mysql');
-dotenv.config();
+const conexion = require('./config/ConnectionDb');
+//? Function for connect
 
-const conexion = mysql.createConnection({
-    host: process.env.HOST,
-    database: process.env.DATABASE,
-    password: process.env.PASSWORD,
-    user: process.env.USER
-});
+async function connect(){
+    await conexion.connect(error=>{
+        if(error){
+            throw error
+        }
+        else{
+            console.log(['successful connection']);
+        }
+    });
+}
 
 
-module.exports = {conexion};
+
+
+module.exports = { 
+    connect
+};
 
 
