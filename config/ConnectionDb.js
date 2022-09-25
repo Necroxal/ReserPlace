@@ -1,13 +1,11 @@
 const dotenv = require('dotenv');
-const mysql = require('mysql');
+const Sequelize = require("sequelize");
 dotenv.config();
 
 
-const conexion = mysql.createConnection({
+const databaseConnection = new Sequelize(process.env.DATABASE, "admin", process.env.PASSWORD, {
     host: process.env.HOST,
-    database: process.env.DATABASE,
-    password: process.env.PASSWORD,
-    user: process.env.USER
+    dialect: process.env.DIALECT
 });
 
-module.exports = conexion;
+module.exports = databaseConnection;

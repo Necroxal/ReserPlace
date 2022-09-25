@@ -1,22 +1,15 @@
-const conexion = require('./config/ConnectionDb');
-//? Function for connect
+const databaseConnection = require('./config/ConnectionDb');
 
-async function connect(){
-    await conexion.connect(error=>{
-        if(error){
-            throw error
-        }
-        else{
-            console.log(['successful connection']);
-        }
-    });
+async function connectDatabase(){
+    try {
+        await databaseConnection.authenticate();
+        await databaseConnection.sync();
+        await console.log("Connection with database established");
+    } catch (error) {
+        console.log("Couldn't stablish connection with database", {msg: error});
+    }
 }
 
-
-
-
-module.exports = { 
-    connect
-};
+module.exports = connectDatabase;
 
 
