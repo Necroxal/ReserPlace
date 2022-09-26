@@ -1,23 +1,20 @@
-const conexion = require('./config/ConnectionDb');
-//? Function for connect
-
-async function connect(){
-    await conexion.connect(error=>{
-        if(error){
-            throw error
-        }
-        else{
-            console.log(['successful connection']);
-        }
-    });
-}
+const dbConfig = require('./config/db.config');
+const Sequilize = require('sequelize');
 
 
+const sequelize = new Sequilize(dbConfig.database, dbConfig.user, dbConfig.password,{
+    host: dbConfig.host,
+    dialect: dbConfig.dialect,
+    operatorsAliases: true
+})
 
+const db = {};
 
-module.exports = { 
-    connect
-};
+db.Sequilize = Sequilize;
+db.sequelize = sequelize;
 
+db.User = require('./apiServices/users/model')(sequelize,Sequilize);
+
+module.exports = db;
 
 
