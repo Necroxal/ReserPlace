@@ -1,9 +1,4 @@
 const dotenv = require('dotenv');
-<<<<<<< HEAD:config/db.config.js
-=======
-
-dotenv.config();
->>>>>>> test:config/ConnectionDb.js
 
 dotenv.config();
 
