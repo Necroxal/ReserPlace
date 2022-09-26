@@ -5,7 +5,7 @@ const Sequilize = require('sequelize');
 const sequelize = new Sequilize(dbConfig.database, dbConfig.user, dbConfig.password,{
     host: dbConfig.host,
     dialect: dbConfig.dialect,
-    operatorsAliases: true
+    operatorsAliases: 0
 })
 
 const db = {};

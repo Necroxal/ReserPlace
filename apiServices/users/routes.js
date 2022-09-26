@@ -1,10 +1,8 @@
 const express = require('express');
-const responses = require('../../utils/response');
+const controller = require('./controller');
 const router = express.Router();
 
-//Add Place
-router.post('/',(req,res)=>{
-    
-});
+//Agregar alumno
+router.post('/', controller.create);
 
 module.exports = router;

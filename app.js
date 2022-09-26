@@ -8,8 +8,11 @@ const routes = require("./routes/routes"); //? Import routes
 dotenv.config(); 
 
 const PORT = process.env.PORT || 3000;
+
 app.use(express.json());
 app.use(express.urlencoded({extended: false}) );
+
+
 db.sequelize.sync({force:true})
   .then(() => {
     console.log("Synced db.");
@@ -19,6 +22,8 @@ db.sequelize.sync({force:true})
   });
 
 routes(app); 
+
+
 app.listen(PORT,  ()=>{
     console.log(`El servidor esta escuchando en el puerto ${PORT}`);
 });
