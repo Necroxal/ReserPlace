@@ -3,7 +3,7 @@ const User = db.User;
 const response = require('../../utils/response');
 
 
-module.exports.create = (req, res) => {
+const createUser = (req, res) => {
     // Validate request
     if (!req.body.email || !req.body.password || !req.body.name || !req.body.lastname ||!req.body.phone ||!req.body.state) {
       res.status(400).send({
@@ -31,3 +31,7 @@ module.exports.create = (req, res) => {
         response.error(req,res,'Internal error',500,err);
       });
   };
+
+module.exports = {
+  createUser
+}
