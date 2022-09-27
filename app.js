@@ -1,20 +1,35 @@
 const express = require('express'); //?Server express
 const app = express();
+
 const dotenv = require('dotenv'); //?For environment varibales in file .env
-const {conexion,connect} = require('./db');//?Connection for bd in mysql
+dotenv.config();
+
+const cors = require("cors");
+const bodyParser = require("body-parser");
+
+const connectDatabase = require('./db');//?Connection for bd in mysql
 const routes = require("./routes/routes"); //? Import routes 
 
-//? use dotenv
-dotenv.config(); 
-
 const PORT = process.env.PORT || 3000;
+
+app.use(express.json());
+app.use(express.urlencoded({extended: false}) );
+
+app.use(bodyParser.json());
+app.use(cors());
+
 
 //?Use the route of file routes.js
 routes(app); 
 
-connect();
+connectDatabase.sequelize.authenticate()
+    .then(() => {
+        console.log("connected to database");
+    })
+    .catch(error => {
+        console.log("Unable to connect to database", {msg: error});
+    })
 
 app.listen(PORT,  ()=>{
     console.log(`El servidor esta escuchando en el puerto ${PORT}`);
 });
-

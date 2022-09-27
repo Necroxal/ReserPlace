@@ -1,15 +1,14 @@
-const databaseConnection = require('./config/ConnectionDb');
+const dbConfig = require('./config/db.config');
+const Sequelize = require("sequelize");
 
-async function connectDatabase(){
-    try {
-        await databaseConnection.authenticate();
-        await databaseConnection.sync();
-        await console.log("Connection with database established");
-    } catch (error) {
-        console.log("Couldn't stablish connection with database", {msg: error});
-    }
-}
+const sequelize = new Sequelize(dbConfig.database, dbConfig.user, dbConfig.password, {
+    host: dbConfig.host,
+    dialect: dbConfig.dialect,
+});
 
-module.exports = connectDatabase;
+const db = {};
 
+db.Sequelize = Sequelize;
+db.sequelize = sequelize;
 
+module.exports = db;
