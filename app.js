@@ -9,6 +9,7 @@ const bodyParser = require("body-parser");
 
 const connectDatabase = require('./db');//?Connection for bd in mysql
 const routes = require("./routes/routes"); //? Import routes 
+const cookies = require('cookie-parser');
 
 const PORT = process.env.PORT || 3000;
 
@@ -17,6 +18,8 @@ app.use(express.urlencoded({extended: false}) );
 
 app.use(bodyParser.json());
 app.use(cors());
+
+app.use(cookies());
 
 
 //?Use the route of file routes.js

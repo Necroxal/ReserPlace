@@ -30,7 +30,7 @@ const createUser = async (req, res, next) => {
         
         res.cookie("token", accessToken, {
             httpOnly: true, 
-            secure: true, 
+            secure: false, 
             SameSite: "strict", 
             expires: new Date(Number(new Date()) + 30*60*1000) 
         });
@@ -65,7 +65,7 @@ const userLogin = async (req, res, next) => {
             
             res.cookie("token", accessToken, {
                 httpOnly: true,
-                secure: true,
+                secure: false,
                 SameSite: "strict",
                 expires: new Date(Number(new Date()) + 30*60*1000)
             });
