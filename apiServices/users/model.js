@@ -1,7 +1,7 @@
 const {Sequelize, DataTypes} = require("sequelize");
-const databaseConnection = require("../../config/ConnectionDb")
+const db = require("../../db")
 
-const User = databaseConnection.define("user", {
+const User = db.sequelize.define("user", {
     user_id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -48,4 +48,13 @@ const createUser = (email, password, name, lastName, phone, state) => {
     });
 }
 
-module.exports = createUser;
+const getUserByEmail = (email) => {
+    return User.findAll({
+        where: {
+            email: email
+        },
+        raw: true
+    });
+};
+
+module.exports = {createUser, getUserByEmail};
