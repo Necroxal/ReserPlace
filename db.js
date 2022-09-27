@@ -13,6 +13,7 @@ const db = {};
 db.Sequilize = Sequilize;
 db.sequelize = sequelize;
 
+db.Place = require('./apiServices/places/model')(sequelize,Sequilize);
 db.User = require('./apiServices/users/model')(sequelize,Sequilize);
 
 module.exports = db;
