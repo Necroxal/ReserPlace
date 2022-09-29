@@ -5,14 +5,11 @@ const fs = require('fs');
 
 const create = (req, res) => {
   //Validate request
-  if (!req.body.type || !req.body.description || !req.body.price  || !req.body.status_place || !req.body.state || !req.body.city || !req.body.adress) {
+  if (!req.body.type || !req.body.description || !req.body.price  || !req.body.status_place || !req.body.state || !req.body.city || !req.body.adress || !req.file.originalname) {
     res.status(400).send({
       message: "Content can not be empty!"
     });
     return;
-  }
-  if (req.file == undefined) {
-    return res.send('Image not found')
   }
 
   // Create a Tutorial
@@ -24,7 +21,7 @@ const create = (req, res) => {
     state: req.body.state,
     city: req.body.city,
     adress: req.body.adress,
-    image: req.file,
+    image: req.file.originalname,
   };
   console.log(req.file);
   // Save  in the database
