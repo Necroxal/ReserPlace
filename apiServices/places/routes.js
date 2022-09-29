@@ -1,10 +1,11 @@
 const express = require('express');
-const responses = require('../../utils/response');
+const controller = require('./controller');
 const router = express.Router();
+const {uploadImage} = require('../../middleware/multer');
 
-//Add Place
-router.post('/',(req,res)=>{
-    
-});
 
+
+
+//routes
+router.post('/create',uploadImage(), controller.create);
 module.exports = router;
