@@ -26,7 +26,8 @@ const createUser = async (req, res, next) => {
 
         const user = await db.createUser(email, password, name, lastName, phone, state);
 
-        const accessToken = jwt.sign(user, process.env.SECRET_KEY/* , {expiresIn: "30m"} */);
+        // user.toJSON() converts the response into a simple object with it's values.
+        const accessToken = jwt.sign(user.toJSON(), process.env.SECRET_KEY/* , {expiresIn: "30m"} */);
         
         res.cookie("token", accessToken, {
             httpOnly: true, 
@@ -92,7 +93,7 @@ const updateUserInfo = async(req, res, next) => {
         const data = await db.getUserByEmail(req.body.email);
 
         await db.updateUser(data[0], newData);
-        
+
         res.status(200).json({msg: "User updated"});
     } catch (error) {
         console.log({msg: error});
