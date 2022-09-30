@@ -9,4 +9,8 @@ const {uploadImage} = require('../../middleware/multer');
 router.post('/create',uploadImage(), controller.createPlace);
 //Update Place
 router.put('/update/:id', controller.updatePlace);
+//Delete Place
+router.delete('/delete/:id',controller.deletePlace);
+
+
 module.exports = router;

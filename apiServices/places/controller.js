@@ -32,7 +32,7 @@ const createPlace = (req, res) => {
     .catch(err => {
       response.error(req, res, 'Internal error', 500, err);
     });
-};
+}
 const updatePlace = (req,res)=>{
   const id = req.params.id;
   Place.update(req.body,{
@@ -47,7 +47,24 @@ const updatePlace = (req,res)=>{
     response.error(req, res, 'Internal error', 500, err);
   })
 }
+const deletePlace = (req,res)=>{
+  const id = req.params.id;
+  Place.destroy({
+    where: {places_id: id}
+  })
+  .then(num =>{
+    if(num == 1){
+      response.succes(req, res, `Place ${req.params.id} eliminated`, 201);
+    }
+  })
+  .catch(err =>{
+    response.error(req, res, 'Internal error', 500, err);
+  });
+  
+}
+
 module.exports = {
   createPlace,
-  updatePlace
+  updatePlace,
+  deletePlace
 }
