@@ -74,9 +74,22 @@ const findOnePlace = (req,res)=>{
     response.error(req, res, 'Internal error', 500, err);
   });
 }
+const findAllPlaces = (req,res)=>{
+
+  Place.findAll()
+  .then(data =>{
+      response.succes(req, res,data, 201);
+  })
+  .catch(err =>{
+    response.error(req, res, 'Internal error', 500, err);
+  });
+}
+
+
 module.exports = {
   createPlace,
   updatePlace,
   deletePlace,
-  findOnePlace
+  findOnePlace,
+  findAllPlaces
 }

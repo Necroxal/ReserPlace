@@ -13,5 +13,8 @@ router.put('/update/:id', controller.updatePlace);
 router.delete('/delete/:id',controller.deletePlace);
 //Find one place
 router.get('/findo/:id', controller.findOnePlace);
+//Find all places
+router.get('/findall', controller.findAllPlaces);
+
 
 module.exports = router;
