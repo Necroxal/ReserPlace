@@ -35,12 +35,15 @@ const createPlace = (req, res) => {
 }
 const updatePlace = (req,res)=>{
   const id = req.params.id;
-  Place.update(req.body,{
-    where: {places_id: id}
-  })
+  Place.update(req.body,{where: {places_id: id}})
   .then(num =>{
     if(num == 1){
       response.succes(req, res, `Place ${req.params.id} updated`, 201);
+    }
+    else{
+      res.send({
+        message: `Cannot update Place with id=${id}. Maybe Place was not found or req.body is empty!`
+      });
     }
   })
   .catch(err =>{
@@ -60,7 +63,7 @@ const deletePlace = (req,res)=>{
   .catch(err =>{
     response.error(req, res, 'Internal error', 500, err);
   });
-  
+
 }
 const findOnePlace = (req,res)=>{
   const id = req.params.id;

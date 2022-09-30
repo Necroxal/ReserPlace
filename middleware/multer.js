@@ -5,7 +5,7 @@ const path = require('path');
 
 const uploadImage = () => {
     const storage = multer.diskStorage({
-        destination: './public/image',
+        //destination: './public/image',
         filename: (req, file, cb) => {
             const fileTypes = /jpeg|jpg|png|gif/;
             const mimetype = fileTypes.test(file.mimetype);
