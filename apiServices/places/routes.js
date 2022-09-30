@@ -5,12 +5,13 @@ const {uploadImage} = require('../../middleware/multer');
 
 
 //routes
-//Create Place
+//Create place
 router.post('/create',uploadImage(), controller.createPlace);
-//Update Place
+//Update place
 router.put('/update/:id', controller.updatePlace);
-//Delete Place
+//Delete place
 router.delete('/delete/:id',controller.deletePlace);
-
+//Find one place
+router.get('/findo/:id', controller.findOnePlace);
 
 module.exports = router;

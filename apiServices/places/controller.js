@@ -62,9 +62,21 @@ const deletePlace = (req,res)=>{
   });
   
 }
-
+const findOnePlace = (req,res)=>{
+  const id = req.params.id;
+  Place.findByPk(id)
+  .then(data =>{
+      if(data){
+      response.succes(req, res,data, 201);
+      }
+  })
+  .catch(err =>{
+    response.error(req, res, 'Internal error', 500, err);
+  });
+}
 module.exports = {
   createPlace,
   updatePlace,
-  deletePlace
+  deletePlace,
+  findOnePlace
 }
