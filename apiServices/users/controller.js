@@ -81,6 +81,25 @@ const userLogin = async (req, res, next) => {
     }
 }
 
+const userLogout = async (req, res, next) =>{
+    res.cookie("token", "", { maxAge: 1 });
+    res.redirect("/");
+}
+
+const updateUserInfo = async(req, res, next) => {
+    try {
+        const newData = req.body;
+        const data = await db.getUserByEmail(req.body.email);
+
+        await db.updateUser(data[0], newData);
+        
+        res.status(200).json({msg: "User updated"});
+    } catch (error) {
+        console.log({msg: error});
+        res.status(500).json({msg: "Something went wrong"});
+    }
+}
+
 const verifyToken = async (req, res, next) => {
     const token = req.cookies.token;
 
@@ -108,4 +127,6 @@ module.exports = {
     createUser,
     userLogin,
     verifyToken,
+    updateUserInfo,
+    userLogout,
 };

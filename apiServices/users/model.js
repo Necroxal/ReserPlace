@@ -57,4 +57,23 @@ const getUserByEmail = (email) => {
     });
 };
 
-module.exports = {createUser, getUserByEmail};
+const updateUser = (oldUser, newUser) =>{
+    const updateQuery = {}
+
+    newUser.name ? updateQuery.name = newUser.name : null;
+    newUser.lastName ? updateQuery.lastName = newUser.lastName : null;
+    newUser.phone ? updateQuery.phone = newUser.phone : null;    
+    newUser.state ? updateQuery.state = newUser.state : null;
+
+    console.log(updateQuery, updateQuery.phone);
+
+    return User.update(updateQuery,
+        {
+            where: {
+                email: oldUser.email 
+            }
+        }
+    );
+}
+
+module.exports = {createUser, getUserByEmail, updateUser};
