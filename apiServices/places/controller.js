@@ -40,7 +40,7 @@ const updatePlace = (req,res)=>{
   })
   .then(num =>{
     if(num == 1){
-      response.succes(req, res, 'Update successfully', 201);
+      response.succes(req, res, `Place ${req.params.id} updated`, 201);
     }
   })
   .catch(err =>{
