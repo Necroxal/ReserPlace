@@ -5,7 +5,7 @@ const fs = require('fs');
 
 const createPlace = (req, res) => {
   //Validate request
-  if (!req.body.type || !req.body.description || !req.body.price  || !req.body.status_place || !req.body.state || !req.body.city || !req.body.adress || !req.file.originalname) {
+  if (!req.body.type || !req.body.description || !req.body.price || !req.body.status_place || !req.body.state || !req.body.city || !req.body.adress || !req.file.originalname) {
     res.status(400).send({
       message: "Content can not be empty!"
     });
@@ -33,59 +33,84 @@ const createPlace = (req, res) => {
       response.error(req, res, 'Internal error', 500, err);
     });
 }
-const updatePlace = (req,res)=>{
+const updatePlace = (req, res) => {
   const id = req.params.id;
-  Place.update(req.body,{where: {places_id: id}})
-  .then(num =>{
-    if(num == 1){
-      response.succes(req, res, `Place ${req.params.id} updated`, 201);
+  const body = req.body;
+
+  //console.log('body:', body);
+  //console.log('req:', req.file);
+
+  const type = body.type;
+  const description = body.description;
+  const price = body.price;
+  const status_place = body.status_place;
+  const state = body.state;
+  const city = body.city;
+  const adress = body.adress;
+  
+  const updates = {
+    type,
+    description,
+    price,
+    status_place,
+    state,
+    city,
+    adress
+  }
+  if(req.file){
+    const image = req.file.originalname;
+    updates.image = image;
+  }
+  Place.update(updates,{
+    where: {
+      places_id: id
     }
-    else{
-      res.send({
-        message: `Cannot update Place with id=${id}. Maybe Place was not found or req.body is empty!`
-      });
-    }
+  }).then(data =>{
+    response.succes(req, res, `Place ${req.params.id} updated`, 201);
+    
   })
-  .catch(err =>{
+  .catch(err=>{
     response.error(req, res, 'Internal error', 500, err);
   })
 }
-const deletePlace = (req,res)=>{
+const deletePlace = (req, res) => {
   const id = req.params.id;
   Place.destroy({
-    where: {places_id: id}
-  })
-  .then(num =>{
-    if(num == 1){
-      response.succes(req, res, `Place ${req.params.id} eliminated`, 201);
-    }
-  })
-  .catch(err =>{
-    response.error(req, res, 'Internal error', 500, err);
-  });
+      where: {
+        places_id: id
+      }
+    })
+    .then(num => {
+      if (num == 1) {
+        response.succes(req, res, `Place ${req.params.id} eliminated`, 201);
+      }
+    })
+    .catch(err => {
+      response.error(req, res, 'Internal error', 500, err);
+    });
 
 }
-const findOnePlace = (req,res)=>{
+const findOnePlace = (req, res) => {
   const id = req.params.id;
   Place.findByPk(id)
-  .then(data =>{
-      if(data){
-      response.succes(req, res,data, 201);
+    .then(data => {
+      if (data) {
+        response.succes(req, res, data, 201);
       }
-  })
-  .catch(err =>{
-    response.error(req, res, 'Internal error', 500, err);
-  });
+    })
+    .catch(err => {
+      response.error(req, res, 'Internal error', 500, err);
+    });
 }
-const findAllPlaces = (req,res)=>{
+const findAllPlaces = (req, res) => {
 
   Place.findAll()
-  .then(data =>{
-      response.succes(req, res,data, 201);
-  })
-  .catch(err =>{
-    response.error(req, res, 'Internal error', 500, err);
-  });
+    .then(data => {
+      response.succes(req, res, data, 201);
+    })
+    .catch(err => {
+      response.error(req, res, 'Internal error', 500, err);
+    });
 }
 
 
