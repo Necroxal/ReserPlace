@@ -8,6 +8,8 @@ const {
     userLogout
 } = require("./controller");
 
+
+// Import all our middleware and add them to their respective route.
 router.get("/user", userMainPage, (req, res, next) => {
     next();
 })
