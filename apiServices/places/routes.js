@@ -1,7 +1,7 @@
 const express = require('express');
 const controller = require('./controller');
 const router = express.Router();
-const {uploadImage} = require('../../middleware/multer');
+const {uploadImage} = require('../../middleware/multer'); //Call the multer middleware
 
 
 //routes

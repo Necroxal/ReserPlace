@@ -1,5 +1,7 @@
+//sequelize model connecting with mysql
 module.exports = (sequelize, Sequelize) => {
-    const places = sequelize.define("places", {
+    const places = sequelize.define("places", { //Places is the name for table in mysql
+        //Attributes
         places_id: {
             type: Sequelize.INTEGER,
             autoIncrement: true,
@@ -39,8 +41,8 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false,
         },
     },{
-        timestamps: false,
-        freezeTableName: true,
+        timestamps: false, //hide unnecessary fields
+        freezeTableName: true, //omit pluralize
         
     });
 
