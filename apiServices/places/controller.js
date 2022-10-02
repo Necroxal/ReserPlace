@@ -1,7 +1,6 @@
 const db = require('../../db');
 const Place = db.Place;
 const response = require('../../utils/response');
-const fs = require('fs');
 
 const createPlace = (req, res) => {
   //Validate request
@@ -36,10 +35,6 @@ const createPlace = (req, res) => {
 const updatePlace = (req, res) => {
   const id = req.params.id;
   const body = req.body;
-
-  //console.log('body:', body);
-  //console.log('req:', req.file);
-
   const type = body.type;
   const description = body.description;
   const price = body.price;
@@ -66,8 +61,12 @@ const updatePlace = (req, res) => {
       places_id: id
     }
   }).then(data =>{
+    if(data == 1){
     response.succes(req, res, `Place ${req.params.id} updated`, 201);
-    
+    }
+    else{
+      return res.send('The value you are trying to update is the same').status(400);
+    }
   })
   .catch(err=>{
     response.error(req, res, 'Internal error', 500, err);
