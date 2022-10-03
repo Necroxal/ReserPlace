@@ -1,5 +1,5 @@
-const dbConfig = require('./config/db.config'); 
-const Sequilize = require('sequelize'); //Import ORM(sequelize) to use model in mysql
+const dbConfig = require('./config/db.config');
+const Sequelize = require("sequelize");
 
 //Connection ORM with mysql
 const sequelize = new Sequilize(dbConfig.database, dbConfig.user, dbConfig.password,{
@@ -19,3 +19,4 @@ db.Place = require('./apiServices/places/model')(sequelize,Sequilize);
 module.exports = db;
 
 
+db.User = require("./apiServices/users/model")(sequelize, Sequelize);
