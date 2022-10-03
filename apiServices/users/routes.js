@@ -2,11 +2,11 @@ const express = require("express");
 const router = express.Router();
 const {
     userMainPage, 
-    createUser, 
+    createNewUser, 
     userLogin, 
     updateUserInfo, 
     userLogout
-} = require("./controller");
+} = require("../../middleware/users");
 
 
 // Import all our middleware and add them to their respective route.
@@ -18,7 +18,7 @@ router.patch("/user", updateUserInfo, (req, res, next) => {
     next();
 })
 
-router.post("/signup", createUser, (req, res, next) => {
+router.post("/signup", createNewUser, (req, res, next) => {
     next();
 });
 

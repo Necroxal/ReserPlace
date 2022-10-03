@@ -7,9 +7,9 @@ dotenv.config();
 const cors = require("cors");
 const bodyParser = require("body-parser");
 
-const connectDatabase = require('./db');//?Connection for bd in mysql
 const routes = require("./routes/routes"); //? Import routes 
 const cookies = require('cookie-parser');
+const db = require('./db');
 
 const PORT = process.env.PORT || 3000;
 
@@ -21,18 +21,18 @@ app.use(cors());
 
 app.use(cookies());
 
-
-//?Use the route of file routes.js
+//initial database on sequelize
+db.sequelize.sync()
+  .then(() => {
+    console.log("Synced db.");
+  })
+  .catch((err) => {
+    console.log("Failed to sync db: " + err.message);
+  });
+//&Function for the routes
 routes(app); 
 
-connectDatabase.sequelize.authenticate()
-    .then(() => {
-        console.log("connected to database");
-    })
-    .catch(error => {
-        console.log("Unable to connect to database", {msg: error});
-    })
-
+//Initial server
 app.listen(PORT,  ()=>{
     console.log(`El servidor esta escuchando en el puerto ${PORT}`);
 });

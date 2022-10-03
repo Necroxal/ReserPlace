@@ -1,6 +1,6 @@
 const places = require('../apiServices/places/routes');
 const users = require("../apiServices/users/routes");
-const {verifyToken} = require("../apiServices/users/controller");
+const {verifyToken} = require("../middleware/users");
 
 //&Fucntion to manage routes
 //?The parameter is sent in index.js (main project)
