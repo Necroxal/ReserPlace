@@ -27,7 +27,7 @@ const createPlace = (req, res) => {
   // Save  in the database
   Place.create(place)
     .then(data => {
-      response.succes(req, res, data, 201);
+      response.success(req, res, data, 201);
     })
     .catch(err => {
       response.error(req, res, 'Internal error', 500, err);
@@ -56,7 +56,7 @@ const updatePlace = (req, res) => {
     }
   }).then(data =>{
     if(data == 1){ 
-    response.succes(req, res, `Place ${req.params.id} updated`, 201); 
+    response.success(req, res, `Place ${req.params.id} updated`, 201); 
     }
     else{
       return res.send('The value you are trying to update is the same').status(400);
@@ -75,7 +75,7 @@ const deletePlace = (req, res) => {
     })
     .then(num => {
       if (num == 1) {
-        response.succes(req, res, `Place ${req.params.id} eliminated`, 201);
+        response.success(req, res, `Place ${req.params.id} eliminated`, 201);
       }
     })
     .catch(err => {
@@ -88,7 +88,7 @@ const findOnePlace = (req, res) => {
   Place.findByPk(id)
     .then(data => {
       if (data) {
-        response.succes(req, res, data, 201);
+        response.success(req, res, data, 201);
       }
     })
     .catch(err => {
@@ -99,7 +99,7 @@ const findAllPlaces = (req, res) => {
 
   Place.findAll()
     .then(data => {
-      response.succes(req, res, data, 201);
+      response.success(req, res, data, 201);
     })
     .catch(err => {
       response.error(req, res, 'Internal error', 500, err);

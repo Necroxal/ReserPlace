@@ -1,6 +1,8 @@
+//! response handling
 // module that allows customizing the output of a response
-
+const chalk = require('chalk');
 //Errors customizing for controllers
+//function that represents successful response and sends it in body
 const success = (req,res,message,codeStatus)=>{
     res.status(codeStatus || 200).send({
         error: '',
