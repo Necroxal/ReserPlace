@@ -96,7 +96,7 @@ const findOnePlace = (req, res) => {
     });
 }
 const findAllPlaces = (req, res) => {
-
+  //kkds
   Place.findAll()
     .then(data => {
       response.success(req, res, data, 201);
