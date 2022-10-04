@@ -15,11 +15,8 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}) );
 
 app.use(cookies()); //use cookies
+
 //initial database on sequelize
-
-
-
-
 db.sequelize.sync()
   .then(() => {
     console.log("Synced db.");
