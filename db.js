@@ -10,7 +10,7 @@ const sequelize = new Sequelize(dbConfig.database, dbConfig.user, dbConfig.passw
 
 const db = {};
 
-db.Sequilize = Sequelize; // This is the main class, the entry point to sequelize.
+db.Sequelize = Sequelize; // This is the main class, the entry point to sequelize.
 db.sequelize = sequelize; //Add connection to object db
 
 db.Place = require('./apiServices/places/model')(sequelize,Sequelize);

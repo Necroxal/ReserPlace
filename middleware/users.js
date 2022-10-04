@@ -1,6 +1,5 @@
 require("dotenv").config();
 const { genSalt, genSaltSync, hashSync, compareSync } = require("bcrypt");
-const { json } = require("body-parser");
 const jwt = require("jsonwebtoken");
 const db = require("../apiServices/users/model");
 const {createUser, getUserByEmail, updateUser} = require("../apiServices/users/controller");
@@ -30,7 +29,7 @@ const createNewUser = async (req, res, next) => {
         password = hashSync(password, salt);
 
         // Create user with the required parameters.
-        const user = createUser(email, password, name, lastName, phone, state);
+        const user = await createUser(email, password, name, lastName, phone, state);
 
         // user.toJSON() converts the response into a simple object with it's values.
         const accessToken = jwt.sign(user.toJSON(), process.env.SECRET_KEY/* , {expiresIn: "30m"} */);
