@@ -21,12 +21,49 @@ const creaReserv = (req, res) => {
     Reservation.create(reservation)
       .then(data => {
         response.success(req, res, data, 201);
+
+        const reserv = db.Reservation.findOne({where: {places_id : req.body.places_id}})
+
+        console.log("Reserv",reserv);
+
+        if(data){
+          db.Place.update({status_place: "Reservado"}, {
+            where: {
+              places_id : req.body.places_id
+            }
+          })
+        }
       })
       .catch(err => {
         response.error(req, res, 'Internal error', 500, err);
       });
-  }
+    }
+
+
+const delReserv = (req, res) => {
+  id = req.params.id
+
+  Reservation.destroy({ //call method for eliminated
+    where: {
+      reservation_id: id
+    }
+  }).then(data => {
+    response.success(req, res, `Reservation deleted with id: ${id}`, 201)
+    if(data){
+      db.Place.update({status_place: "Disponible"}, {
+        where: {
+          places_id : reserv.places_id
+        }
+      })
+    }
+  })
+  .catch(err => {
+    response.error(req, res, 'Internal error', 500, err);
+  })
+}
+
 
   module.exports={
-    creaReserv
+    creaReserv,
+    delReserv
   }

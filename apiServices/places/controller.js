@@ -5,7 +5,7 @@ const response = require('../../utils/response'); //Responses for binder utils
 //methods for the places table
 const createPlace = (req, res) => {
   //Validates if all client-side information exists to create
-  if (!req.body.type || !req.body.description || !req.body.price || !req.body.status_place || !req.body.state || !req.body.city || !req.body.adress || !req.file) {
+  if (!req.body.type || !req.body.description || !req.body.price || !req.body.state || !req.body.city || !req.body.adress || !req.file) {
     res.status(400).send({
       message: "Content can not be empty!"
     });
@@ -16,7 +16,7 @@ const createPlace = (req, res) => {
     type: req.body.type,
     description: req.body.description,
     price: req.body.price,
-    status_place: req.body.status_place,
+    status_place: "Disponible",
     state: req.body.state,
     city: req.body.city,
     adress: req.body.adress,
