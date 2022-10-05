@@ -4,7 +4,6 @@ const response = require('../../utils/response'); //Responses for binder utils
 
 const creaReserv = (req, res) => {
     //Validates if all client-side information exists to create
-    console.log(req);
     if (!req.body.start_date || !req.body.end_date || !req.body.user_id || !req.body.places_id) {
       res.status(400).send({
         message: "Content can not be empty!"
@@ -13,10 +12,10 @@ const creaReserv = (req, res) => {
     }
     // Create a object for inject it into the database
     const reservation = {
-     startD: req.body.start_date,
-     endD: req.body.end_date,
-     user: req.body.user_id,
-     place: req.body.places_id,
+     start_date: req.body.start_date,
+     end_date: req.body.end_date,
+     user_id: req.body.user_id,
+     places_id: req.body.places_id,
     };
     // Save  in the database
     Reservation.create(reservation)
