@@ -22,12 +22,8 @@ const creaReserv = (req, res) => {
       .then(data => {
         response.success(req, res, data, 201);
 
-        const reserv = db.Reservation.findOne({where: {places_id : req.body.places_id}})
-
-        console.log("Reserv",reserv);
-
         if(data){
-          db.Place.update({status_place: "Reservado"}, {
+          db.Place.update({status_place: "Disponible"}, {
             where: {
               places_id : req.body.places_id
             }
@@ -40,22 +36,27 @@ const creaReserv = (req, res) => {
     }
 
 
-const delReserv = (req, res) => {
+const delReserv =  (req, res) => {
   id = req.params.id
 
+  const placeID = db.Reservation.findAll({
+    attributes: ['places_id'],
+    where: {
+      places_id : id
+    }
+  });
+  db.Place.update({status_place: "Disponible"}, {
+    where: {
+      places_id : placeID
+    }
+  })
   Reservation.destroy({ //call method for eliminated
     where: {
       reservation_id: id
     }
   }).then(data => {
+    
     response.success(req, res, `Reservation deleted with id: ${id}`, 201)
-    if(data){
-      db.Place.update({status_place: "Disponible"}, {
-        where: {
-          places_id : reserv.places_id
-        }
-      })
-    }
   })
   .catch(err => {
     response.error(req, res, 'Internal error', 500, err);
