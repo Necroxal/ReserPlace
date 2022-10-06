@@ -1,7 +1,7 @@
 const multer = require('multer'); //Module for upload files
 //internal module of Nodejs for working with file and directory paths
 const path = require('path'); 
-
+//aj
 //function that returns the specification of the file to upload
 const uploadImage = () => {
     const storage = multer.diskStorage({
