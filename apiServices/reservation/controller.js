@@ -23,7 +23,7 @@ const creaReserv = (req, res) => {
         response.success(req, res, data, 201);
 
         if(data){
-          db.Place.update({status_place: "Disponible"}, {
+          db.Place.update({status_place: "Reservado"}, {
             where: {
               places_id : req.body.places_id
             }
@@ -39,32 +39,39 @@ const creaReserv = (req, res) => {
 const delReserv =  (req, res) => {
   id = req.params.id
 
-  const placeID = db.Reservation.findAll({
-    attributes: ['places_id'],
-    where: {
-      places_id : id
-    }
-  });
-  db.Place.update({status_place: "Disponible"}, {
-    where: {
-      places_id : placeID
-    }
-  })
-  Reservation.destroy({ //call method for eliminated
+  db.Reservation.findAll({
     where: {
       reservation_id: id
-    }
+    },
+    raw: true
   }).then(data => {
-    
-    response.success(req, res, `Reservation deleted with id: ${id}`, 201)
-  })
-  .catch(err => {
-    response.error(req, res, 'Internal error', 500, err);
-  })
+    reservation = data[0]
+    placeID = reservation.places_id;
+
+    db.Place.update({status_place: "Disponible"}, {
+      where: {
+        places_id : placeID
+      }
+    })
+    Reservation.destroy({ //call method for eliminated
+      where: {
+        reservation_id: id
+      }
+    }).then(data => {
+      
+      response.success(req, res, `Reservation deleted with id: ${id}`, 201)
+    })
+    .catch(err => {
+      response.error(req, res, 'Internal error', 500, err);
+    })
+
+  }).catch(err => {
+    response.error(req, res, 'Internal Server Error', 500, err)
+  });
 }
 
 
-  module.exports={
-    creaReserv,
-    delReserv
-  }
+module.exports={
+  creaReserv,
+  delReserv
+}
