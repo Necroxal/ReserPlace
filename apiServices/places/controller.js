@@ -40,7 +40,7 @@ const updatePlace = (req, res) => {
     type: req.body.type,
     description: req.body.description,
     price: req.body.price,
-    status_place: req.body.status_place,
+    status_place: 'Disponible',
     state: req.body.state,
     city: req.body.city,
     adress: req.body.adress
