@@ -1,4 +1,4 @@
-const places = require('../apiServices/places/routes');
+const places = require("../apiServices/places/routes");
 const users = require("../apiServices/users/routes");
 const {verifyToken} = require("../middleware/users");
 const reservation = require('../apiServices/reservation/routes');

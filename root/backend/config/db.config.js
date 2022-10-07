@@ -7,7 +7,7 @@ const conexion = {
     host: process.env.HOST,
     database: process.env.DATABASE,
     password: process.env.PASSWORD,
-    user: process.env.USER,
+    user: process.env.USERNAME,
     dialect: 'mysql' //?specify database
 };
 
